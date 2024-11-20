@@ -4,6 +4,8 @@ import 'package:flutter_application_2/location.dart';
 import 'package:flutter_application_2/notifications.dart';
 import 'package:flutter_application_2/message.dart';
 import 'package:flutter_application_2/profile.dart';
+import 'package:flutter_application_2/signUp.dart';
+import 'package:flutter_application_2/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainNavigator(),
+      home: Login(),
       debugShowCheckedModeBanner: false,
     );
   }
