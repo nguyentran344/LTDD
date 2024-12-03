@@ -261,7 +261,7 @@ class _SignUpState extends State<SignUp> {
       child: GestureDetector(
         onTap: () {
           // Điều hướng đến trang đăng nhập
-          Navigator.pop(context); // Giả sử bạn trở về trang đăng nhập
+          Navigator.pop(context);
         },
         child: RichText(
           text: const TextSpan(

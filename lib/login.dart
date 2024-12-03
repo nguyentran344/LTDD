@@ -164,7 +164,6 @@ class Login extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () async {
           // Thực hiện kiểm tra thông tin đăng nhập
-          // Ví dụ: gọi API để kiểm tra thông tin đăng nhập
           if (await _authenticateUser(context)) {
             // Nếu đăng nhập thành công, chuyển sang màn hình ExploreScreen
             Navigator.push(
@@ -191,11 +190,8 @@ class Login extends StatelessWidget {
     );
   }
 
-// Hàm kiểm tra thông tin đăng nhập (ví dụ)
+// Hàm kiểm tra thông tin đăng nhập
   Future<bool> _authenticateUser(BuildContext context) async {
-    // Thực hiện logic kiểm tra thông tin đăng nhập ở đây
-    // Ví dụ: gọi API để kiểm tra thông tin đăng nhập với server
-    // Trả về true nếu đăng nhập thành công, ngược lại trả về false
     return true;
   }
 

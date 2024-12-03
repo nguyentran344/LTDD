@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
 
   @override
   State<ExploreScreen> createState() => _ExploreScreenState();
+}
+
+Future<List<dynamic>> getTourData() async {
+  final response = await http
+      .get(Uri.parse('https://api-ltdd-flutter-1.onrender.com/v1/tour'));
+
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  } else {
+    throw Exception('Failed to load tour data');
+  }
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
@@ -791,352 +804,176 @@ class _ExploreScreenState extends State<ExploreScreen> {
             ),
             Container(
               child: Column(children: [
-                Row(
-                  children: [
-                    Text('Featured Tours',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black)),
-                    SizedBox(width: 170),
-                    Text('SEE MORE',
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.greenAccent)),
-                  ],
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  padding: EdgeInsets.only(right: 50),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
+                FutureBuilder<List<dynamic>>(
+                  future: getTourData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final tourData = snapshot.data!;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
                             children: [
-                              Stack(
-                                children: [
-                                  Image.asset(
-                                    'images/Bana2.png',
-                                    fit: BoxFit.fill,
-                                  ),
-                                  Positioned(
-                                      bottom: 10,
-                                      left: 10,
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.star,
-                                            color: const Color.fromARGB(
-                                                255, 232, 210, 12),
-                                          ),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Text(
-                                            '1247 likes',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          )
-                                        ],
-                                      ))
-                                ],
-                              ),
-                              SizedBox(height: 10),
-                              Container(
-                                padding: EdgeInsets.all(14),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text("Da Nang - Ba Na - Hoi An",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            )),
-                                        SizedBox(
-                                          width: 130,
-                                        ),
-                                        Icon(Icons.favorite_border_outlined,
-                                            color: const Color.fromRGBO(
-                                                0, 206, 166, 1))
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.calendar_month,
-                                          color: Colors.grey,
-                                        ),
-                                        Text("Jan 30, 2020",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.grey)),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.timelapse,
-                                          color: Colors.grey,
-                                        ),
-                                        Text("3 days",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.grey)),
-                                        SizedBox(
-                                          width: 210,
-                                        ),
-                                        Text(
-                                          "\$400.00",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.greenAccent),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    )
-                                  ],
-                                ),
-                              ),
+                              Text('Featured Tours',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black)),
+                              SizedBox(width: 170),
+                              Text('SEE MORE',
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.greenAccent)),
                             ],
-                          )),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  Image.asset(
-                                    'images/Melbourne.png',
-                                    fit: BoxFit.fill,
-                                  ),
-                                  Positioned(
-                                      bottom: 10,
-                                      left: 10,
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.star,
-                                            color: const Color.fromARGB(
-                                                255, 232, 210, 12),
-                                          ),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Text(
-                                            '1247 likes',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          )
-                                        ],
-                                      ))
-                                ],
-                              ),
-                              SizedBox(height: 10),
-                              Container(
-                                padding: EdgeInsets.all(14),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text("Melbourne - Sydney",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            )),
-                                        SizedBox(
-                                          width: 160,
-                                        ),
-                                        Icon(Icons.favorite_border_outlined,
-                                            color: const Color.fromRGBO(
-                                                0, 206, 166, 1))
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.calendar_month,
-                                          color: Colors.grey,
-                                        ),
-                                        Text("Jan 30, 2020",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.grey)),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.timelapse,
-                                          color: Colors.grey,
-                                        ),
-                                        Text("3 days",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.grey)),
-                                        SizedBox(
-                                          width: 210,
-                                        ),
-                                        Text(
-                                          "\$600.00",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.greenAccent),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  Image.asset(
-                                    'images/halongbay.png',
-                                    fit: BoxFit.fill,
-                                  ),
-                                  Positioned(
-                                      bottom: 10,
-                                      left: 10,
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.star,
-                                            color: const Color.fromARGB(
-                                                255, 232, 210, 12),
-                                          ),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Icon(Icons.star,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 210, 12)),
-                                          Text(
-                                            '1247 likes',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          )
-                                        ],
-                                      ))
-                                ],
-                              ),
-                              SizedBox(height: 10),
-                              Container(
-                                padding: EdgeInsets.all(14),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text("Hanoi - Ha Long Bay",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            )),
-                                        SizedBox(
-                                          width: 160,
-                                        ),
-                                        Icon(Icons.favorite_border_outlined,
-                                            color: const Color.fromRGBO(
-                                                0, 206, 166, 1))
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.calendar_month,
-                                          color: Colors.grey,
-                                        ),
-                                        Text("Jan 30, 2020",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.grey)),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.timelapse,
-                                          color: Colors.grey,
-                                        ),
-                                        Text("3 days",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.grey)),
-                                        SizedBox(
-                                          width: 210,
-                                        ),
-                                        Text(
-                                          "\$300.00",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.greenAccent),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ))
-                    ],
-                  ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(right: 50),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: tourData
+                                  .map(
+                                    (tour) => Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Column(
+                                          children: [
+                                            Stack(
+                                              children: [
+                                                Image.network(
+                                                  tour['avatar'] ?? '',
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                Positioned(
+                                                    bottom: 10,
+                                                    left: 10,
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: const Color
+                                                              .fromARGB(255,
+                                                              232, 210, 12),
+                                                        ),
+                                                        Icon(Icons.star,
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                232, 210, 12)),
+                                                        Icon(Icons.star,
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                232, 210, 12)),
+                                                        Icon(Icons.star,
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                232, 210, 12)),
+                                                        Icon(Icons.star,
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                232, 210, 12)),
+                                                        Text(
+                                                          '${tour['like'] ?? 0} likes',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        )
+                                                      ],
+                                                    ))
+                                              ],
+                                            ),
+                                            SizedBox(height: 10),
+                                            Container(
+                                              padding: EdgeInsets.all(14),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                          tour['cityName'] ??
+                                                              '',
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          )),
+                                                      SizedBox(
+                                                        width: 130,
+                                                      ),
+                                                      Icon(
+                                                          Icons
+                                                              .favorite_border_outlined,
+                                                          color: const Color
+                                                              .fromRGBO(
+                                                              0, 206, 166, 1))
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.calendar_month,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      Text(
+                                                          tour['startDate'] ??
+                                                              '',
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.grey)),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.timelapse,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      Text(
+                                                          "${tour['duration'] ?? 0} days",
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.grey)),
+                                                      SizedBox(
+                                                        width: 210,
+                                                      ),
+                                                      Text(
+                                                        "\$${(tour['price'] ?? 0).toStringAsFixed(2)}",
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors
+                                                                .greenAccent),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 20,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                  )
+                                  .toList(),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 20,
